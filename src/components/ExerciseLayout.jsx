@@ -1,19 +1,18 @@
-import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
+import './ExerciseLayout.css';
 
-const ExerciseLayout = ({ title, score, children }) => {
+export default function ExerciseLayout({ title, children }) {
   return (
-    <div className="exercise-container">
-      <h2>{title}</h2>
-      {score !== undefined && <p className="score">Puntuación: {score}</p>}
-      {children}
+    <div className="exercise-layout">
+      <div className="exercise-header">
+        <Link to="/exercises" className="back-button">
+          ← Volver a Ejercicios
+        </Link>
+        <h2>{title}</h2>
+      </div>
+      <div className="exercise-content">
+        {children}
+      </div>
     </div>
-  )
+  );
 }
-
-ExerciseLayout.propTypes = {
-  title: PropTypes.string.isRequired,
-  score: PropTypes.number,
-  children: PropTypes.node.isRequired
-}
-
-export default ExerciseLayout

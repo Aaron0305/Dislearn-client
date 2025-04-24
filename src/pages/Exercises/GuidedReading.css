@@ -1,0 +1,273 @@
+.guided-reading {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reading-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .control-group label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .control-options {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .control-options button {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  
+  .control-options button.active {
+    background-color: #4a6fa5;
+    color: white;
+    border-color: #4a6fa5;
+  }
+  
+  .reading-progress {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .progress-slider {
+    flex: 1;
+    height: 8px;
+    -webkit-appearance: none;
+    background: #f0f2f5;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4a6fa5;
+    cursor: pointer;
+  }
+  
+  .progress-label {
+    font-size: 14px;
+    color: #666;
+    min-width: 100px;
+  }
+  
+  .reading-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    max-height: 400px;
+  }
+  
+  .reading-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .reading-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .reading-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 5px;
+  }
+  
+  .reading-text {
+    line-height: 1.8;
+    color: #333;
+  }
+  
+  /* Font size options */
+  .reading-content.small {
+    font-size: 16px;
+  }
+  
+  .reading-content.medium {
+    font-size: 20px;
+  }
+  
+  .reading-content.large {
+    font-size: 24px;
+  }
+  
+  /* Font type options */
+  .reading-content.dyslexic {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+  }
+  
+  .reading-content.sans {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .reading-content.serif {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  /* Reading speed options */
+  .reading-content.slow p {
+    animation: highlightLine 6s linear infinite;
+  }
+  
+  .reading-content.normal p {
+    animation: highlightLine 4s linear infinite;
+  }
+  
+  .reading-content.fast p {
+    animation: highlightLine 2s linear infinite;
+  }
+  
+  /* Highlighting options */
+  .reading-content .word.highlightable:hover {
+    background-color: #ffeb3b;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .reading-content.line-highlight p {
+    position: relative;
+  }
+  
+  .reading-content.line-highlight p:hover {
+    background-color: rgba(255, 235, 59, 0.3);
+  }
+  
+  /* Word definition popup */
+  .word-definition {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 15px 20px;
+    width: 90%;
+    max-width: 500px;
+    z-index: 100;
+  }
+  
+  .definition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .definition-header h4 {
+    margin: 0;
+    color: #4a6fa5;
+    font-size: 18px;
+  }
+  
+  .close-definition {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .reading-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .nav-button {
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #395a8a;
+  }
+  
+  .exercise-counter {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .no-exercise {
+    padding: 50px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Animation for line highlighting */
+  @keyframes highlightLine {
+    0%, 100% {
+      background-color: transparent;
+    }
+    50% {
+      background-color: rgba(255, 235, 59, 0.2);
+    }
+  }
+  
+  /* OpenDyslexic font integration */
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @media (max-width: 768px) {
+    .reading-controls {
+      grid-template-columns: 1fr;
+    }
+    
+    .control-options {
+      flex-wrap: wrap;
+    }
+    
+    .reading-content {
+      padding: 20px;
+      max-height: 350px;
+    }
+  }
