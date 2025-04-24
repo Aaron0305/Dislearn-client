@@ -1,0 +1,109 @@
+.progress-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .progress-page h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4a6fa5;
+    margin-top: 10px;
+  }
+  
+  .progress-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .progress-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progress-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .recent-activities {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recent-activities h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .recent-activities ul {
+    list-style: none;
+  }
+  
+  .recent-activities li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .activity-name {
+    flex: 2;
+  }
+  
+  .activity-date {
+    flex: 1;
+    text-align: right;
+    color: #7f8c8d;
+  }
+  
+  .activity-score {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .high-score {
+    color: #27ae60;
+  }
+  
+  .medium-score {
+    color: #

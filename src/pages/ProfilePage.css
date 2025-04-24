@@ -1,0 +1,112 @@
+.profile-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+  }
+  
+  .edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--secondary);
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  
+  .profile-info h1 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-info p {
+    color: var(--text-light);
+    margin: 0.25rem 0;
+  }
+  
+  .profile-settings {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .setting-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .setting-group h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  .setting-option {
+    margin-bottom: 1rem;
+  }
+  
+  .setting-option label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  
+  .setting-option input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+  
+  .setting-option select {
+    margin-left: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .save-button, .logout-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .save-button {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .logout-button {
+    background: var(--error);
+    color: white;
+  }

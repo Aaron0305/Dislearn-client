@@ -1,0 +1,200 @@
+/* Estilos base para todos los ejercicios */
+.exercise-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--background);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .exercise-container h2 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .score {
+    text-align: right;
+    font-weight: bold;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .exercise-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Estilos para feedback */
+  .feedback {
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    animation: fadeIn 0.5s;
+  }
+  
+  .feedback.correct {
+    background-color: rgba(107, 191, 89, 0.2);
+    color: var(--success);
+  }
+  
+  .feedback.incorrect {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--error);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Estilos específicos para WordOrder */
+  .word-exercise {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .sentence-preview {
+    min-height: 60px;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .placeholder {
+    color: var(--text-light);
+    font-style: italic;
+  }
+  
+  .word-tag {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .word-tag:hover {
+    background-color: var(--primary);
+    transform: scale(1.05);
+  }
+  
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .word-button {
+    background-color: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+  }
+  
+  .word-button:hover {
+    background-color: var(--primary-light);
+    color: white;
+  }
+  
+  .word-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .exercise-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .check-button, .reset-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .check-button {
+    background-color: var(--success);
+    color: white;
+  }
+  
+  .check-button:hover {
+    background-color: #5aa848;
+  }
+  
+  .reset-button {
+    background-color: var(--error);
+    color: white;
+  }
+  
+  .reset-button:hover {
+    background-color: #d63b2b;
+  }
+  
+  /* Estilos específicos para SoundMatching */
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .option-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: white;
+    border: 2px solid var(--primary-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .option-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .option-button img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  
+  /* Diseño responsivo */
+  @media (max-width: 768px) {
+    .options {
+      grid-template-columns: 1fr;
+    }
+    
+    .exercise-container {
+      padding: 1rem;
+    }
+    
+    .exercise-content {
+      padding: 1rem;
+    }
+  }
