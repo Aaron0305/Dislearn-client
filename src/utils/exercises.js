@@ -1,4 +1,5 @@
 export const wordExercises = [
+  // Código anterior de ejercicios de palabras
   {
     id: 1,
     words: ["El", "gato", "duerme", "en", "el", "sofá"],
@@ -36,12 +37,8 @@ export const wordExercises = [
   }
 ];
 
-export const soundMatchingExercises = [
-  // Aquí irían los ejercicios de emparejamiento de sonidos
-  // Implementación futura
-];
-
 export const guidedReadingExercises = [
+  // Código anterior de ejercicios de lectura guiada
   {
     id: 1,
     title: "El Robot Amigable",
@@ -86,3 +83,314 @@ export const guidedReadingExercises = [
     }
   }
 ];
+
+// Alfabeto español completo con fonética y ejemplos
+export const spanishAlphabet = [
+  {
+    id: 'a',
+    letter: 'A',
+    phonetic: 'a',
+    example: 'Árbol',
+    difficulty: 'easy'
+  },
+  {
+    id: 'b',
+    letter: 'B',
+    phonetic: 've',
+    example: 'Barco',
+    difficulty: 'easy'
+  },
+  {
+    id: 'c',
+    letter: 'C',
+    phonetic: 'ce',
+    example: 'Casa',
+    difficulty: 'medium'
+  },
+  {
+    id: 'd',
+    letter: 'D',
+    phonetic: 'de',
+    example: 'Dedo',
+    difficulty: 'easy'
+  },
+  {
+    id: 'e',
+    letter: 'E',
+    phonetic: 'e',
+    example: 'Elefante',
+    difficulty: 'easy'
+  },
+  {
+    id: 'f',
+    letter: 'F',
+    phonetic: 'efe',
+    example: 'Foca',
+    difficulty: 'easy'
+  },
+  {
+    id: 'g',
+    letter: 'G',
+    phonetic: 'ge',
+    example: 'Gato',
+    difficulty: 'medium'
+  },
+  {
+    id: 'h',
+    letter: 'H',
+    phonetic: 'hache',
+    example: 'Helado',
+    difficulty: 'hard'
+  },
+  {
+    id: 'i',
+    letter: 'I',
+    phonetic: 'i',
+    example: 'Iglú',
+    difficulty: 'easy'
+  },
+  {
+    id: 'j',
+    letter: 'J',
+    phonetic: 'jota',
+    example: 'Jabón',
+    difficulty: 'medium'
+  },
+  {
+    id: 'k',
+    letter: 'K',
+    phonetic: 'ka',
+    example: 'Kilo',
+    difficulty: 'hard'
+  },
+  {
+    id: 'l',
+    letter: 'L',
+    phonetic: 'ele',
+    example: 'Luna',
+    difficulty: 'easy'
+  },
+  {
+    id: 'm',
+    letter: 'M',
+    phonetic: 'eme',
+    example: 'Mesa',
+    difficulty: 'easy'
+  },
+  {
+    id: 'n',
+    letter: 'N',
+    phonetic: 'ene',
+    example: 'Nube',
+    difficulty: 'easy'
+  },
+  {
+    id: 'ñ',
+    letter: 'Ñ',
+    phonetic: 'eñe',
+    example: 'Niño',
+    difficulty: 'hard'
+  },
+  {
+    id: 'o',
+    letter: 'O',
+    phonetic: 'o',
+    example: 'Oso',
+    difficulty: 'easy'
+  },
+  {
+    id: 'p',
+    letter: 'P',
+    phonetic: 'pe',
+    example: 'Pato',
+    difficulty: 'easy'
+  },
+  {
+    id: 'q',
+    letter: 'Q',
+    phonetic: 'qu',
+    example: 'Queso',
+    difficulty: 'hard'
+  },
+  {
+    id: 'r',
+    letter: 'R',
+    phonetic: 'ere',
+    example: 'Roca',
+    difficulty: 'medium'
+  },
+  {
+    id: 'rr',
+    letter: 'RR',
+    phonetic: 'erre',
+    example: 'Perro',
+    difficulty: 'hard'
+  },
+  {
+    id: 's',
+    letter: 'S',
+    phonetic: 'ese',
+    example: 'Sol',
+    difficulty: 'easy'
+  },
+  {
+    id: 't',
+    letter: 'T',
+    phonetic: 'te',
+    example: 'Taza',
+    difficulty: 'easy'
+  },
+  {
+    id: 'u',
+    letter: 'U',
+    phonetic: 'u',
+    example: 'Uva',
+    difficulty: 'easy'
+  },
+  {
+    id: 'v',
+    letter: 'V',
+    phonetic: 'uve',
+    example: 'Vaca',
+    difficulty: 'hard'
+  },
+  {
+    id: 'w',
+    letter: 'W',
+    phonetic: 'doble ve',
+    example: 'Waterpolo',
+    difficulty: 'hard'
+  },
+  {
+    id: 'x',
+    letter: 'X',
+    phonetic: 'equis',
+    example: 'Xilófono',
+    difficulty: 'hard'
+  },
+  {
+    id: 'y',
+    letter: 'Y',
+    phonetic: 'igriega',
+    example: 'Yema',
+    difficulty: 'medium'
+  },
+  {
+    id: 'z',
+    letter: 'Z',
+    phonetic: 'zeta',
+    example: 'Zapato',
+    difficulty: 'medium'
+  },
+  {
+    id: 'ch',
+    letter: 'CH',
+    phonetic: 'che',
+    example: 'Chaqueta',
+    difficulty: 'hard'
+  },
+  {
+    id: 'll',
+    letter: 'LL',
+    phonetic: 'elle',
+    example: 'Llave',
+    difficulty: 'hard'
+  }
+];
+
+// NUEVOS EJERCICIOS DE ORTOGRAFÍA
+export const spellingExercises = [
+  {
+    id: 1,
+    type: "fill_letters",
+    title: "Completa con R o RR",
+    instruction: "Completa los espacios con R o RR según corresponda",
+    words: [
+      { 
+        text: "ca__o / ca__eta / pe__o / a__oz", 
+        solutions: ["r", "rr", "rr", "r"],
+        answers: ["caro", "carreta", "perro", "aroz"] // aroz es incorrecto a propósito
+      },
+      {
+        text: "co__er / __isa / __ueda / __opa",
+        solutions: ["rr", "r", "r", "r"],
+        answers: ["correr", "risa", "rueda", "ropa"]
+      }
+    ],
+    difficulty: "easy",
+    explanation: "Se usa RR cuando el sonido fuerte de la R está entre vocales (carro), y R cuando es suave (caro)."
+  },
+  {
+    id: 2,
+    type: "fill_letters",
+    title: "Completa con G o GU",
+    instruction: "Completa los espacios con G o GU según corresponda",
+    words: [
+      {
+        text: "__isante / __emir / __ía / __erra",
+        solutions: ["g", "g", "g", "g"],
+        answers: ["gisante", "gemir", "gía", "gerra"] // gisante y gerra son incorrectos
+      },
+      {
+        text: "__ante / __isano / __arnición / __erra",
+        solutions: ["g", "gu", "gu", "g"],
+        answers: ["gante", "guisano", "guarnición", "gerra"] // gante y gerra incorrectos
+      }
+    ],
+    difficulty: "medium",
+    explanation: "Se usa GU antes de E o I para mantener el sonido fuerte (guiso). G va con A, O, U (gato)."
+  },
+  {
+    id: 3,
+    type: "choose_correct",
+    title: "Selecciona la palabra correcta",
+    instruction: "Elige la opción con la ortografía correcta",
+    words: [
+      { options: ["girafa", "jirafa"], correct: 1 },
+      { options: ["gerra", "guerra"], correct: 1 },
+      { options: ["gitano", "guitano"], correct: 0 },
+      { options: ["jefe", "gefe"], correct: 0 },
+      { options: ["jarabe", "garabe"], correct: 0 }
+    ],
+    difficulty: "medium",
+    explanation: "Algunas palabras con sonido fuerte usan J (jirafa) y otras G (gitano)."
+  },
+  {
+    id: 4,
+    type: "color_words",
+    title: "Colorea las palabras",
+    instruction: "Identifica palabras con B (azul) y V (verde)",
+    words: [
+      { text: "vaca", correct: "v" },
+      { text: "bota", correct: "b" },
+      { text: "vino", correct: "v" },
+      { text: "bala", correct: "b" },
+      { text: "vaso", correct: "v" },
+      { text: "barco", correct: "b" }
+    ],
+    difficulty: "hard",
+    explanation: "Las palabras con B y V suenan igual pero se escriben diferente."
+  },
+  {
+    id: 5,
+    type: "syllable_division",
+    title: "Divide en sílabas",
+    instruction: "Separa estas palabras en sílabas correctamente",
+    words: [
+      { text: "árbol", solution: "ár-bol" },
+      { text: "ventana", solution: "ven-ta-na" },
+      { text: "computadora", solution: "com-pu-ta-do-ra" },
+      { text: "murciélago", solution: "mur-cié-la-go" }
+    ],
+    difficulty: "hard",
+    explanation: "Dividir palabras en sílabas ayuda a reconocer su estructura."
+  }
+];
+
+// Tipos de ejercicios disponibles
+export const exerciseTypes = {
+  FILL_LETTERS: "fill_letters",
+  CHOOSE_CORRECT: "choose_correct",
+  COLOR_WORDS: "color_words",
+  SYLLABLE_DIVISION: "syllable_division"
+};

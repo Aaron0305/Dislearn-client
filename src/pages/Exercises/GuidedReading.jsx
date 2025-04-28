@@ -5,17 +5,14 @@ import './GuidedReading.css';
 
 export default function GuidedReading() {
   const [currentExercise, setCurrentExercise] = useState(0);
-  const [readingSpeed, setReadingSpeed] = useState('normal');
   const [fontSize, setFontSize] = useState('medium');
   const [fontType, setFontType] = useState('dyslexic');
   const [highlighting, setHighlighting] = useState('word');
   const [showingDefinition, setShowingDefinition] = useState(null);
-  const [progress, setProgress] = useState(0);
 
   const exercise = guidedReadingExercises[currentExercise];
 
   useEffect(() => {
-    setProgress(0);
     setShowingDefinition(null);
   }, [currentExercise]);
 
@@ -34,74 +31,45 @@ export default function GuidedReading() {
     }
   };
 
-  const handleProgressChange = (e) => {
-    setProgress(e.target.value);
+  // Función para dividir el texto en líneas en lugar de párrafos
+  const splitTextIntoLines = (text) => {
+    return text.split('\n').flatMap(paragraph => 
+      paragraph.split(/(\.\s+|\?\s+|\!\s+)/).filter(Boolean)
+    );
   };
 
   // Función para aplicar resaltado según la configuración
   const renderText = () => {
     if (!exercise) return null;
 
-    const words = exercise.text.split(' ');
-    const paragraphs = [];
-    let currentParagraph = [];
+    const lines = splitTextIntoLines(exercise.text);
+    const content = [];
 
-    words.forEach((word, index) => {
-      // Detectar final de párrafo
-      if (word.includes('\n')) {
-        const parts = word.split('\n');
-        if (parts[0]) {
-          currentParagraph.push(
-            <span 
-              key={`${index}-a`} 
-              className={`word ${highlighting === 'word' ? 'highlightable' : ''}`}
-              onClick={() => handleWordClick(parts[0].replace(/[.,;!?]$/, ''))}
-            >
-              {parts[0]}{' '}
-            </span>
-          );
-        }
-        paragraphs.push(
-          <p key={paragraphs.length}>
-            {currentParagraph}
-          </p>
-        );
-        currentParagraph = [];
-        
-        if (parts[1]) {
-          currentParagraph.push(
-            <span 
-              key={`${index}-b`} 
-              className={`word ${highlighting === 'word' ? 'highlightable' : ''}`}
-              onClick={() => handleWordClick(parts[1].replace(/[.,;!?]$/, ''))}
-            >
-              {parts[1]}{' '}
-            </span>
-          );
-        }
-      } else {
-        currentParagraph.push(
-          <span 
-            key={index} 
-            className={`word ${highlighting === 'word' ? 'highlightable' : ''}`}
-            onClick={() => handleWordClick(word.replace(/[.,;!?]$/, ''))}
-          >
-            {word}{' '}
-          </span>
-        );
+    lines.forEach((line, lineIndex) => {
+      if (line.trim() === '') {
+        content.push(<br key={`br-${lineIndex}`} />);
+        return;
       }
+
+      const words = line.split(' ');
+      const lineContent = words.map((word, wordIndex) => (
+        <span 
+          key={`${lineIndex}-${wordIndex}`} 
+          className={`word ${highlighting === 'word' ? 'highlightable' : ''}`}
+          onClick={() => handleWordClick(word.replace(/[.,;!?]$/, ''))}
+        >
+          {word}{' '}
+        </span>
+      ));
+
+      content.push(
+        <div key={lineIndex} className={highlighting === 'line' ? 'line-highlight' : ''}>
+          {lineContent}
+        </div>
+      );
     });
 
-    // Añadir el último párrafo
-    if (currentParagraph.length > 0) {
-      paragraphs.push(
-        <p key={paragraphs.length}>
-          {currentParagraph}
-        </p>
-      );
-    }
-
-    return paragraphs;
+    return content;
   };
 
   if (!exercise) {
@@ -118,120 +86,85 @@ export default function GuidedReading() {
     <ExerciseLayout title="Lectura Guiada">
       <div className="guided-reading">
         <div className="reading-controls">
-          <div className="control-group">
-            <label>Velocidad:</label>
-            <div className="control-options">
-              <button 
-                className={readingSpeed === 'slow' ? 'active' : ''} 
-                onClick={() => setReadingSpeed('slow')}
-              >
-                Lenta
-              </button>
-              <button 
-                className={readingSpeed === 'normal' ? 'active' : ''} 
-                onClick={() => setReadingSpeed('normal')}
-              >
-                Normal
-              </button>
-              <button 
-                className={readingSpeed === 'fast' ? 'active' : ''} 
-                onClick={() => setReadingSpeed('fast')}
-              >
-                Rápida
-              </button>
+          <div className="control-section">
+            <div className="control-group">
+              <label>Tamaño de letra:</label>
+              <div className="control-options">
+                <button 
+                  className={fontSize === 'small' ? 'active' : ''} 
+                  onClick={() => setFontSize('small')}
+                >
+                  Pequeña
+                </button>
+                <button 
+                  className={fontSize === 'medium' ? 'active' : ''} 
+                  onClick={() => setFontSize('medium')}
+                >
+                  Mediana
+                </button>
+                <button 
+                  className={fontSize === 'large' ? 'active' : ''} 
+                  onClick={() => setFontSize('large')}
+                >
+                  Grande
+                </button>
+              </div>
+            </div>
+
+            <div className="control-group">
+              <label>Tipo de letra:</label>
+              <div className="control-options">
+                <button 
+                  className={fontType === 'dyslexic' ? 'active' : ''} 
+                  onClick={() => setFontType('dyslexic')}
+                >
+                  Dislexia
+                </button>
+                <button 
+                  className={fontType === 'sans' ? 'active' : ''} 
+                  onClick={() => setFontType('sans')}
+                >
+                  Sin serifa
+                </button>
+                <button 
+                  className={fontType === 'serif' ? 'active' : ''} 
+                  onClick={() => setFontType('serif')}
+                >
+                  Con serifa
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="control-group">
-            <label>Tamaño de letra:</label>
-            <div className="control-options">
-              <button 
-                className={fontSize === 'small' ? 'active' : ''} 
-                onClick={() => setFontSize('small')}
-              >
-                Pequeña
-              </button>
-              <button 
-                className={fontSize === 'medium' ? 'active' : ''} 
-                onClick={() => setFontSize('medium')}
-              >
-                Mediana
-              </button>
-              <button 
-                className={fontSize === 'large' ? 'active' : ''} 
-                onClick={() => setFontSize('large')}
-              >
-                Grande
-              </button>
+          <div className="control-section">
+            <div className="control-group">
+              <label>Resaltado:</label>
+              <div className="control-options">
+                <button 
+                  className={highlighting === 'none' ? 'active' : ''} 
+                  onClick={() => setHighlighting('none')}
+                >
+                  Ninguno
+                </button>
+                <button 
+                  className={highlighting === 'word' ? 'active' : ''} 
+                  onClick={() => setHighlighting('word')}
+                >
+                  Por palabra
+                </button>
+                <button 
+                  className={highlighting === 'line' ? 'active' : ''} 
+                  onClick={() => setHighlighting('line')}
+                >
+                  Por línea
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="control-group">
-            <label>Tipo de letra:</label>
-            <div className="control-options">
-              <button 
-                className={fontType === 'dyslexic' ? 'active' : ''} 
-                onClick={() => setFontType('dyslexic')}
-              >
-                Dislexia
-              </button>
-              <button 
-                className={fontType === 'sans' ? 'active' : ''} 
-                onClick={() => setFontType('sans')}
-              >
-                Sin serifa
-              </button>
-              <button 
-                className={fontType === 'serif' ? 'active' : ''} 
-                onClick={() => setFontType('serif')}
-              >
-                Con serifa
-              </button>
-            </div>
-          </div>
-
-          <div className="control-group">
-            <label>Resaltado:</label>
-            <div className="control-options">
-              <button 
-                className={highlighting === 'none' ? 'active' : ''} 
-                onClick={() => setHighlighting('none')}
-              >
-                Ninguno
-              </button>
-              <button 
-                className={highlighting === 'word' ? 'active' : ''} 
-                onClick={() => setHighlighting('word')}
-              >
-                Por palabra
-              </button>
-              <button 
-                className={highlighting === 'line' ? 'active' : ''} 
-                onClick={() => setHighlighting('line')}
-              >
-                Por línea
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="reading-progress">
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            value={progress} 
-            onChange={handleProgressChange}
-            className="progress-slider"
-          />
-          <div className="progress-label">
-            Progreso: {progress}%
           </div>
         </div>
 
         <div 
-          className={`reading-content ${readingSpeed} ${fontSize} ${fontType} ${highlighting === 'line' ? 'line-highlight' : ''}`}
-          style={{ transform: `translateY(-${progress}%)` }}
+          className={`reading-content ${fontSize} ${fontType}`}
         >
           <h3 className="reading-title">{exercise.title}</h3>
           {exercise.image && (
@@ -239,7 +172,7 @@ export default function GuidedReading() {
               <img src={exercise.image} alt={exercise.title} className="reading-image" />
             </div>
           )}
-          <div className="reading-text">
+          <div className="reading-text" style={{ marginBottom: '50px' }}>
             {renderText()}
           </div>
         </div>
