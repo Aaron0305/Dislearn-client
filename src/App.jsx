@@ -17,9 +17,9 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <div className="app">
+        <div className="min-h-screen">
           <Navbar />
-          <main>
+          <main className="pt-20">  {/* Añadimos padding-top para compensar el navbar fijo */}
             <Routes>
               <Route path={ROUTES.HOME} element={<Home />} />
               <Route path={ROUTES.EXERCISES} element={<Exercises />} />
