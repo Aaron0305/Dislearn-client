@@ -216,7 +216,7 @@ export default function Home() {
             <p className="text-black/80 mt-4">Combinamos tecnología, ciencia educativa y acompañamiento personalizado</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="p-3 bg-[#EAC4D5]/30 rounded-full inline-block mb-4">
                 <span className="text-[#809BCE]"><IconBrain /></span>
@@ -232,48 +232,47 @@ export default function Home() {
               <h3 className="text-xl font-bold text-black mb-3">Seguimiento de progreso</h3>
               <p className="text-black/70">Monitorización detallada del avance con informes personalizados que permiten ajustar el plan de intervención según las necesidades específicas.</p>
             </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-[#EAC4D5]/30 rounded-full inline-block mb-4">
-                <span className="text-[#809BCE]"><IconUsers /></span>
-              </div>
-              <h3 className="text-xl font-bold text-black mb-3">Soporte profesional</h3>
-              <p className="text-black/70">Acceso a consultas con especialistas en dislexia, recursos para padres y orientación para educadores que acompañan el proceso.</p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonios */}
+      {/* Testimonios (ahora video) */}
       <section className="py-16 bg-[#B8E0D2]/10">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800">Testimonios</h2>
-            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Familias y profesionales que han experimentado cambios positivos</p>
+            <h2 className="text-3xl font-bold text-gray-800">Video recomendado</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Conoce más sobre la dislexia en este video</p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonios.map(testimonio => (
-              <div key={testimonio.id} className="bg-gray-50 p-6 rounded-lg">
-                <div className="flex items-center mb-4">
-                  <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                    <span className="text-blue-600"><IconMessageCircle /></span>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="font-bold text-gray-800">{testimonio.nombre}</h4>
-                    <p className="text-sm text-gray-600">{testimonio.relacion}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 italic">"{testimonio.texto}"</p>
-              </div>
-            ))}
-          </div>
-          
-          <div className="text-center mt-8">
-            <a href="#" className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
-              Ver más testimonios
-              <span className="w-4 h-4 ml-1"><IconChevronRight /></span>
-            </a>
+          <div className="flex justify-center">
+            <div
+              className="w-full"
+              style={{
+                maxWidth: "700px",
+                margin: "0 auto",
+                borderRadius: "1rem",
+                overflow: "hidden",
+                boxShadow: "0 4px 24px #0001",
+                position: "relative",
+                paddingBottom: "56.25%",
+                height: 0,
+              }}
+            >
+              <iframe
+                src="https://www.youtube.com/embed/6l7dWaPS4lo"
+                title="Video sobre dislexia"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                }}
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -326,8 +325,8 @@ export default function Home() {
               <h3 className="text-white font-bold mb-4">Contacto</h3>
               <ul className="space-y-2 text-sm">
                 <li>info@dislexiaayuda.com</li>
-                <li>+34 900 123 456</li>
-                <li>Madrid, España</li>
+                <li>+52 7122186324</li>
+                <li>Mexico , Estado de Mexico</li>
               </ul>
             </div>
           </div>

@@ -58,9 +58,9 @@ export default function Navbar({ user, setUser }) {
           {/* Menu para escritorio */}
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex space-x-1">
-              <NavLink to="/" active={location.pathname === "/"}>Inicio</NavLink>
-              <NavLink to="/exercises" active={location.pathname.startsWith("/exercises")}>Ejercicios</NavLink>
-              <NavLink to="/progress" active={location.pathname.startsWith("/progress")}>Progreso</NavLink>
+              <NavLink to="/" active={location.pathname === "/"} scrolled={scrolled}>Inicio</NavLink>
+              <NavLink to="/exercises" active={location.pathname.startsWith("/exercises")} scrolled={scrolled}>Ejercicios</NavLink>
+              <NavLink to="/progress" active={location.pathname.startsWith("/progress")} scrolled={scrolled}>Progreso</NavLink>
             </div>
             
             <div className="ml-6 flex items-center">
@@ -120,9 +120,9 @@ export default function Navbar({ user, setUser }) {
       {/* Menú móvil - Se muestra/oculta según el estado isOpen */}
       <div className={`md:hidden absolute w-full transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
         <div className="bg-gradient-to-b from-[#EAC4D5] via-[#B8E0D2] to-[#809BCE] backdrop-blur-md px-4 py-3 space-y-2 shadow-2xl border-b-4 border-[#EAC4D5]">
-          <NavLinkMobile to="/" active={location.pathname === "/"} onClick={() => setIsOpen(false)}>Inicio</NavLinkMobile>
-          <NavLinkMobile to="/exercises" active={location.pathname.startsWith("/exercises")} onClick={() => setIsOpen(false)}>Ejercicios</NavLinkMobile>
-          <NavLinkMobile to="/progress" active={location.pathname.startsWith("/progress")} onClick={() => setIsOpen(false)}>Progreso</NavLinkMobile>
+          <NavLinkMobile to="/" active={location.pathname === "/"} scrolled={scrolled} onClick={() => setIsOpen(false)}>Inicio</NavLinkMobile>
+          <NavLinkMobile to="/exercises" active={location.pathname.startsWith("/exercises")} scrolled={scrolled} onClick={() => setIsOpen(false)}>Ejercicios</NavLinkMobile>
+          <NavLinkMobile to="/progress" active={location.pathname.startsWith("/progress")} scrolled={scrolled} onClick={() => setIsOpen(false)}>Progreso</NavLinkMobile>
           
           <div className="pt-2 pb-3">
             {user ? (
@@ -162,22 +162,24 @@ export default function Navbar({ user, setUser }) {
  * @param {string} to - Ruta de destino
  * @param {ReactNode} children - Contenido del enlace
  * @param {boolean} active - Si el enlace está activo
+ * @param {boolean} scrolled - Si la navbar está scrolleada
  */
-function NavLink({ to, children, active }) {
+function NavLink({ to, children, active, scrolled }) {
+  // Color base y hover según scrolled
+  const baseColor = scrolled ? 'text-[#EAC4D5]' : 'text-[#809BCE]';
+  const hoverColor = scrolled ? 'hover:text-[#B8E0D2]' : 'hover:text-black';
+  const activeColor = active ? 'text-black' : baseColor;
+
   return (
     <Link
       to={to}
-      className={`group relative px-4 py-2 font-bold transition-all duration-300 ${
-        active 
-          ? 'text-black'
-          : 'text-[#809BCE] hover:text-black'
-      }`}
+      className={`group relative px-4 py-2 font-bold transition-all duration-300 ${activeColor} ${hoverColor}`}
     >
       <span>{children}</span>
-      <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transition-all duration-300 origin-left ${
+      <span className={`absolute bottom-0 left-0 w-full h-0.5 ${scrolled ? 'bg-[#B8E0D2]' : 'bg-black'} transition-all duration-300 origin-left ${
         active ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100'
       }`}></span>
-      <span className={`absolute bottom-0 right-0 w-1 h-1 rounded-full bg-black transition-all duration-300 delay-200 ${
+      <span className={`absolute bottom-0 right-0 w-1 h-1 rounded-full ${scrolled ? 'bg-[#B8E0D2]' : 'bg-black'} transition-all duration-300 delay-200 ${
         active ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
       }`}></span>
     </Link>
@@ -190,16 +192,22 @@ function NavLink({ to, children, active }) {
  * @param {ReactNode} children - Contenido del enlace
  * @param {Function} onClick - Función para manejar el click (generalmente cierra el menú)
  * @param {boolean} active - Si el enlace está activo
+ * @param {boolean} scrolled - Si la navbar está scrolleada
  */
-function NavLinkMobile({ to, children, onClick, active }) {
+function NavLinkMobile({ to, children, onClick, active, scrolled }) {
+  // Color base y hover según scrolled
+  const baseColor = scrolled ? 'text-[#EAC4D5]' : 'text-[#809BCE]';
+  const hoverColor = scrolled ? 'hover:text-[#B8E0D2]' : 'hover:text-black';
+  const activeBg = scrolled ? 'bg-[#B8E0D2]/40' : 'bg-[#EAC4D5]/40';
+
   return (
     <Link
       to={to}
       onClick={onClick}
       className={`block px-4 py-3 rounded-lg font-bold transition-all duration-200 hover:pl-6 ${
         active 
-          ? 'text-black bg-[#EAC4D5]/40'
-          : 'text-[#809BCE] hover:text-black hover:bg-[#EAC4D5]/20'
+          ? `text-black ${activeBg}`
+          : `${baseColor} ${hoverColor} hover:${activeBg}`
       }`}
     >
       {children}
