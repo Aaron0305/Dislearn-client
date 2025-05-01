@@ -7,5 +7,6 @@ export const ROUTES = {
   SPELLING_PRACTICE: '/exercises/spelling-practice',
   COMPLETE_WORDS: '/exercises/complete-words', // Nueva ruta
   PROGRESS: '/progress',
-  PROFILE: '/profile'
+  PROFILE: '/profile',
+  TEST: '/test', // Nueva ruta para el test de dislexia
 };

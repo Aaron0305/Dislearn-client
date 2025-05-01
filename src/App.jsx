@@ -11,6 +11,7 @@ import Progress from './pages/Progress';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import { UserProvider } from './contexts/UserContext';
+import Test from './pages/Test/Test'; // Nuevo componente para el test de dislexia
 import './styles/App.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path={ROUTES.COMPLETE_WORDS} element={<CompletarPalabras />} />
               <Route path={ROUTES.PROGRESS} element={<Progress />} />
               <Route path={ROUTES.PROFILE} element={<Profile />} />
+              <Route path={ROUTES.TEST} element={<Test />} /> 
             </Routes>
           </main>
         </div>

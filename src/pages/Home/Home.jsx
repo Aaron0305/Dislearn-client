@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // Componentes de iconos personalizados para reemplazar lucide-react
 const IconBook = () => (
@@ -89,8 +90,7 @@ export default function Home() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-black">Apoyo integral para niños con dislexia</h1>
               <p className="text-xl mb-6 text-black">Recursos especializados, ejercicios interactivos y orientación profesional para superar los desafíos de la dislexia.</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B8E0D2] text-black font-semibold px-6 py-3 rounded-md hover:bg-[#D6EADF] transition-colors">Comenzar ahora</button>
-                <button className="border-2 border-black text-black font-semibold px-6 py-3 rounded-md hover:bg-[#EAC4D5]/50 transition-colors">Sobre nosotros</button>
+                <button className="bg-[#B8E0D2] text-black font-semibold px-6 py-3 rounded-md hover:bg-[#D6EADF] transition-colors">Sobre nosotros</button>
               </div>
             </div>
             <div className="md:w-2/5">
@@ -175,8 +175,25 @@ export default function Home() {
                       <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
                       <span className="text-gray-700">Evaluación de la comprensión lectora</span>
                     </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                      <span className="text-gray-700">Realiza test</span>
+                    </li>
                   </ul>
                   <p className="text-gray-700">La detección temprana es clave para la intervención efectiva.</p>
+                  <div className="flex items-center mt-4 gap-2">
+                    <span className="text-[#809BCE]">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                    <Link
+                      to="/test"
+                      className="bg-[#809BCE] text-white px-4 py-2 rounded-md font-semibold hover:bg-[#EAC4D5] transition-colors"
+                    >
+                      Ir al test
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>

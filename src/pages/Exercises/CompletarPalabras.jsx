@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ExerciseLayout from '../../components/ExerciseLayout';
-import './CompletarPalabras.css';
 
 export default function CompletarPalabras() {
   const navigate = useNavigate();
-  const { user, addPoints } = useUser();
+  const { addPoints } = useUser();
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [feedback, setFeedback] = useState('');
@@ -60,18 +59,28 @@ export default function CompletarPalabras() {
 
   const currentExercise = completeWordsExercises[currentExerciseIndex];
 
+  // Initialize user answers when the component mounts or when the exercise changes
   useEffect(() => {
     if (currentExercise && currentExercise.words) {
-      setUserAnswers(Array(currentExercise.words.length).fill(""));
+      // Initialize with empty strings only if we don't already have answers
+      setUserAnswers(prev => {
+        if (prev.length !== currentExercise.words.length) {
+          return Array(currentExercise.words.length).fill("");
+        }
+        return prev;
+      });
     }
-  }, [currentExerciseIndex]);
+  }, [currentExerciseIndex, currentExercise]);
 
+  // Función estable para seleccionar letras
   const handleLetterSelect = (wordIndex, letter) => {
     if (isCompleted) return;
     
-    const newAnswers = [...userAnswers];
-    newAnswers[wordIndex] = letter;
-    setUserAnswers(newAnswers);
+    setUserAnswers(prevAnswers => {
+      const newAnswers = [...prevAnswers];
+      newAnswers[wordIndex] = letter;
+      return newAnswers;
+    });
   };
 
   const checkAnswers = () => {
@@ -86,7 +95,11 @@ export default function CompletarPalabras() {
     
     const totalPoints = correctCount * 5;
     setScore(totalPoints);
-    addPoints(totalPoints);
+    
+    // Solo añadir puntos cuando se completa por primera vez
+    if (!isCompleted) {
+      addPoints(totalPoints);
+    }
     
     if (correctCount === currentExercise.words.length) {
       setFeedback(`¡Excelente! ${totalPoints} puntos ganados.`);
@@ -99,107 +112,154 @@ export default function CompletarPalabras() {
 
   const nextExercise = () => {
     if (currentExerciseIndex < completeWordsExercises.length - 1) {
-      setCurrentExerciseIndex(currentExerciseIndex + 1);
+      setCurrentExerciseIndex(prevIndex => prevIndex + 1);
       resetExercise();
     } else {
-      navigate('/exercises');
+      // Asegurarse de usar el método correcto para navegar
+      try {
+        navigate('/exercises');
+      } catch (error) {
+        console.error("Error de navegación:", error);
+        // Fallback para navegación
+        window.location.href = '/exercises';
+      }
     }
   };
 
   const resetExercise = () => {
+    if (!currentExercise) return;
     setUserAnswers(Array(currentExercise.words.length).fill(""));
     setIsCompleted(false);
     setFeedback('');
   };
 
   const handleBackToExercises = () => {
-    navigate('/exercises');
+    // Mejorado el manejo de navegación
+    try {
+      navigate('/exercises');
+    } catch (error) {
+      console.error("Error de navegación:", error);
+      // Fallback para navegación
+      window.location.href = '/exercises';
+    }
   };
 
   if (!currentExercise) {
     return (
       <ExerciseLayout title="Completar Palabras">
-        <div>Cargando ejercicios...</div>
+        <div className="flex justify-center items-center h-full">
+          <p className="text-lg text-gray-600">Cargando ejercicios...</p>
+        </div>
       </ExerciseLayout>
     );
   }
 
   return (
     <ExerciseLayout title="Completar Palabras">
-      <div className="completar-palabras-container">
-        <div className="exercise-header">
-          <h2>{currentExercise.title}</h2>
-          <p className="instruction">{currentExercise.instruction}</p>
+      <div className="w-full max-w-4xl mx-auto px-4 py-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg">
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl font-bold text-indigo-700 mb-2">{currentExercise.title}</h2>
+          <p className="text-lg text-gray-600 font-medium">{currentExercise.instruction}</p>
         </div>
 
-        <div className="words-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {currentExercise.words.map((word, wordIndex) => {
             const parts = word.text.split('_');
             return (
-              <div key={wordIndex} className="word-card">
-                <div className="word-display">
+              <div key={wordIndex} className="bg-indigo-50/20 rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-lg">
+                <div className="flex justify-center items-center text-2xl font-bold mb-4 text-gray-800">
                   <span>{parts[0]}</span>
-                  <span className={`letter-space ${userAnswers[wordIndex] ? 'filled' : ''}`}>
+                  <span className={`inline-block w-8 text-center mx-1 border-b-2 ${userAnswers[wordIndex] ? 'border-indigo-500' : 'border-gray-400'}`}>
                     {userAnswers[wordIndex] || '_'}
                   </span>
                   {parts.length > 1 && <span>{parts[1]}</span>}
                 </div>
                 
-                <div className="options-container">
-                  {word.options.map((option, optionIndex) => (
-                    <button
-                      key={optionIndex}
-                      className={`option-button ${userAnswers[wordIndex] === option ? 'selected' : ''}
-                                 ${isCompleted && option === word.correct ? 'correct' : ''}
-                                 ${isCompleted && userAnswers[wordIndex] === option && option !== word.correct ? 'incorrect' : ''}`}
-                      onClick={() => handleLetterSelect(wordIndex, option)}
-                      disabled={isCompleted}
-                    >
-                      {option}
-                    </button>
-                  ))}
+                <div className="flex justify-center space-x-3">
+                  {word.options.map((option, optionIndex) => {
+                    // Calcular las clases del botón de manera más estable
+                    let buttonClasses = "w-10 h-10 rounded-full flex items-center justify-center text-lg font-medium transition-colors duration-300";
+                    
+                    if (isCompleted) {
+                      if (option === word.correct) {
+                        buttonClasses += " bg-green-500 text-white";
+                      } else if (userAnswers[wordIndex] === option && option !== word.correct) {
+                        buttonClasses += " bg-red-500 text-white";
+                      } else {
+                        buttonClasses += " bg-gray-200 text-gray-500";
+                      }
+                    } else {
+                      if (userAnswers[wordIndex] === option) {
+                        buttonClasses += " bg-indigo-600 text-white";
+                      } else {
+                        buttonClasses += " bg-indigo-100 text-gray-800 hover:bg-indigo-200";
+                      }
+                    }
+                    
+                    return (
+                      <button
+                        key={optionIndex}
+                        className={buttonClasses}
+                        onClick={() => handleLetterSelect(wordIndex, option)}
+                        disabled={isCompleted}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="exercise-explanation">
-          <p>{currentExercise.explanation}</p>
+        <div className="bg-indigo-50 p-4 rounded-lg mb-6">
+          <p className="text-indigo-800 italic">{currentExercise.explanation}</p>
         </div>
 
         {feedback && (
-          <div className={`feedback-message ${isCompleted ? 'visible' : ''}`}>
+          <div className={`mb-6 p-4 rounded-lg text-center text-lg font-medium ${isCompleted ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 ${score === currentExercise.words.length * 5 ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}`}>
             <p>{feedback}</p>
           </div>
         )}
 
-        <div className="exercise-actions">
+        <div className="flex justify-center mb-6">
           {!isCompleted ? (
             <button
-              className="check-button"
+              className={`px-8 py-3 rounded-full font-bold text-white transition-all duration-300 ${userAnswers.some(answer => answer === "") ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg'}`}
               onClick={checkAnswers}
               disabled={userAnswers.some(answer => answer === "")}
             >
               Comprobar
             </button>
           ) : (
-            <div className="completed-actions">
-              <button className="retry-button" onClick={resetExercise}>
+            <div className="flex space-x-4">
+              <button 
+                className="px-6 py-3 rounded-full font-bold text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50 transition-colors duration-300"
+                onClick={resetExercise}
+              >
                 Reintentar
               </button>
-              <button className="next-button" onClick={nextExercise}>
+              <button 
+                className="px-8 py-3 rounded-full font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all duration-300"
+                onClick={nextExercise}
+              >
                 {currentExerciseIndex < completeWordsExercises.length - 1 ? 'Siguiente' : 'Finalizar'}
               </button>
             </div>
           )}
         </div>
 
-        <div className="navigation-buttons">
+        <div className="text-center">
+          {/* Botón mejorado para volver a ejercicios */}
           <button 
             onClick={handleBackToExercises}
-            className="back-button"
+            className="px-6 py-2 text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-300 flex items-center justify-center mx-auto"
+            type="button"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
             Volver a Ejercicios
           </button>
         </div>
