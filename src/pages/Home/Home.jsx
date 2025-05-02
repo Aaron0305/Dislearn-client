@@ -1,56 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Book,
+  Brain,
+  BarChart,
+  Users,
+  ChevronRight,
+  CheckCircle,
+  MessageCircle,
+} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
-// Componentes de iconos personalizados para reemplazar lucide-react
-const IconBook = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-  </svg>
-);
-
-const IconBrain = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
-    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
-  </svg>
-);
-
-const IconBarChart = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 20V10"></path>
-    <path d="M18 20V4"></path>
-    <path d="M6 20v-6"></path>
-  </svg>
-);
-
-const IconUsers = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-    <circle cx="9" cy="7" r="4"></circle>
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-  </svg>
-);
-
-const IconChevronRight = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="m9 18 6-6-6-6"></path>
-  </svg>
-);
-
-const IconCheckCircle = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <path d="m9 11 3 3L22 4"></path>
-  </svg>
-);
-
-const IconMessageCircle = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-  </svg>
-);
+// Animaciones base
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } }
+};
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('que-es');
@@ -63,27 +29,25 @@ export default function Home() {
     "Dificultad para seguir instrucciones escritas",
     "Problemas de comprensión lectora"
   ];
-  
-  // Datos para testimonios
-  const testimonios = [
-    {
-      id: 1,
-      nombre: "Ana Rodríguez",
-      relacion: "Madre de Miguel, 9 años",
-      texto: "Los ejercicios han transformado la actitud de mi hijo hacia la lectura. Ahora disfruta aprendiendo."
-    },
-    {
-      id: 2,
-      nombre: "Carlos Méndez",
-      relacion: "Profesor de educación especial",
-      texto: "Como especialista, valoro enormemente los recursos estructurados que ofrece esta plataforma."
-    }
-  ];
 
+  // Hooks para cada sección
+  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [infoRef, infoInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [featuresRef, featuresInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [videoRef, videoInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ctaRef, ctaInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [footerRef, footerInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  
   return (
     <div className="min-h-screen bg-[#D6EADF]/20 font-sans">
       {/* Hero Section - mantiene sus colores actuales */}
-      <section className="bg-gradient-to-r from-[#EAC4D5] to-[#95B8D1] pt-24 pb-16">
+      <motion.section
+        ref={heroRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={heroInView ? "visible" : "hidden"}
+        className="bg-gradient-to-r from-[#EAC4D5] to-[#95B8D1] pt-24 pb-16"
+      >
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-3/5 mb-8 md:mb-0">
@@ -102,10 +66,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Información sobre dislexia */}
-      <section className="py-16 bg-white">
+      <motion.section
+        ref={infoRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={infoInView ? "visible" : "hidden"}
+        className="py-16 bg-white"
+      >
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-black">Entendiendo la Dislexia</h2>
@@ -149,7 +119,7 @@ export default function Home() {
                   <ul className="space-y-2">
                     {sintomas.map((sintoma, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                        <span className="text-blue-600 mr-2 mt-0.5"><CheckCircle size={20} /></span>
                         <span className="text-gray-700">{sintoma}</span>
                       </li>
                     ))}
@@ -164,28 +134,26 @@ export default function Home() {
                   <p className="text-gray-700 mb-4">El proceso suele incluir:</p>
                   <ul className="space-y-2 mb-4">
                     <li className="flex items-start">
-                      <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                      <span className="text-blue-600 mr-2 mt-0.5"><CheckCircle size={20} /></span>
                       <span className="text-gray-700">Evaluación de habilidades de lectura y escritura</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                      <span className="text-blue-600 mr-2 mt-0.5"><CheckCircle size={20} /></span>
                       <span className="text-gray-700">Pruebas de procesamiento fonológico</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                      <span className="text-blue-600 mr-2 mt-0.5"><CheckCircle size={20} /></span>
                       <span className="text-gray-700">Evaluación de la comprensión lectora</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-blue-600 mr-2 mt-0.5"><IconCheckCircle /></span>
+                      <span className="text-blue-600 mr-2 mt-0.5"><CheckCircle size={20} /></span>
                       <span className="text-gray-700">Realiza test</span>
                     </li>
                   </ul>
                   <p className="text-gray-700">La detección temprana es clave para la intervención efectiva.</p>
                   <div className="flex items-center mt-4 gap-2">
                     <span className="text-[#809BCE]">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                      <ChevronRight size={20} />
                     </span>
                     <Link
                       to="/test"
@@ -202,14 +170,20 @@ export default function Home() {
           <div className="text-center">
             <a href="#" className="inline-flex items-center text-[#809BCE] font-medium hover:text-[#95B8D1]">
               Más información sobre dislexia
-              <span className="ml-1"><IconChevronRight /></span>
+              <span className="ml-1"><ChevronRight size={20} /></span>
             </a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Características del programa */}
-      <section className="py-16 bg-[#D6EADF]/20">
+      <motion.section
+        ref={featuresRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={featuresInView ? "visible" : "hidden"}
+        className="py-16 bg-[#D6EADF]/20"
+      >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-black">Nuestro enfoque integral</h2>
@@ -219,7 +193,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="p-3 bg-[#EAC4D5]/30 rounded-full inline-block mb-4">
-                <span className="text-[#809BCE]"><IconBrain /></span>
+                <span className="text-[#809BCE]"><Brain size={24} /></span>
               </div>
               <h3 className="text-xl font-bold text-black mb-3">Ejercicios interactivos</h3>
               <p className="text-black/70">Actividades multisensoriales diseñadas por especialistas</p>
@@ -227,17 +201,23 @@ export default function Home() {
             
             <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="p-3 bg-[#EAC4D5]/30 rounded-full inline-block mb-4">
-                <span className="text-[#809BCE]"><IconBarChart /></span>
+                <span className="text-[#809BCE]"><BarChart size={24} /></span>
               </div>
               <h3 className="text-xl font-bold text-black mb-3">Seguimiento de progreso</h3>
               <p className="text-black/70">Monitorización detallada del avance con informes personalizados que permiten ajustar el plan de intervención según las necesidades específicas.</p>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonios (ahora video) */}
-      <section className="py-16 bg-[#B8E0D2]/10">
+      <motion.section
+        ref={videoRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={videoInView ? "visible" : "hidden"}
+        className="py-16 bg-[#B8E0D2]/10"
+      >
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800">Video recomendado</h2>
@@ -275,10 +255,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-[#95B8D1] to-[#809BCE] py-16">
+      <motion.section
+        ref={ctaRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={ctaInView ? "visible" : "hidden"}
+        className="bg-gradient-to-r from-[#95B8D1] to-[#809BCE] py-16"
+      >
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-6 text-black">Comienza el camino</h2>
           <p className="text-xl max-w-2xl mx-auto mb-8 text-black/90">Descubre cómo nuestro enfoque personalizado puede ayudar</p>
@@ -287,15 +273,21 @@ export default function Home() {
             <button className="border-2 border-black text-black font-semibold px-8 py-3 rounded-md hover:bg-[#B8E0D2]/50">Agendar consulta</button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
-      <footer className="bg-[#809BCE] text-black py-12">
+      <motion.footer
+        ref={footerRef}
+        variants={fadeUp}
+        initial="hidden"
+        animate={footerInView ? "visible" : "hidden"}
+        className="bg-[#809BCE] text-black py-12"
+      >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-4">
-                <span className="text-blue-400"><IconBook /></span>
+                <span className="text-blue-400"><Book size={24} /></span>
                 <h2 className="ml-2 text-lg font-bold text-white">DislexiaAyuda</h2>
               </div>
               <p className="text-sm">Soluciones efectivas e integrales para niños con dislexia, basadas en evidencia científica y adaptadas a cada necesidad.</p>
@@ -316,7 +308,6 @@ export default function Home() {
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white">Nuestro equipo</a></li>
                 <li><a href="#" className="hover:text-white">Metodología</a></li>
-                <li><a href="#" className="hover:text-white">Testimonios</a></li>
                 <li><a href="#" className="hover:text-white">Colaboradores</a></li>
               </ul>
             </div>
@@ -335,7 +326,7 @@ export default function Home() {
             <p>&copy; {new Date().getFullYear()} DislexiaAyuda. Todos los derechos reservados.</p>
           </div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }
