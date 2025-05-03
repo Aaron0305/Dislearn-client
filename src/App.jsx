@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import { UserProvider } from './contexts/UserContext';
 import Test from './pages/Test/Test'; // Nuevo componente para el test de dislexia
+import Login from './components/login/login'; // Componente de login y registro
 import './styles/App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
               <Route path={ROUTES.PROGRESS} element={<Progress />} />
               <Route path={ROUTES.PROFILE} element={<Profile />} />
               <Route path={ROUTES.TEST} element={<Test />} /> 
+              <Route path={ROUTES.login} element={<Login />} />
             </Routes>
           </main>
         </div>
