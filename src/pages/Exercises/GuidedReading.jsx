@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import ExerciseLayout from '../../components/ExerciseLayout';
 import { guidedReadingExercises } from '../../utils/exercises';
-import './GuidedReading.css';
 
 export default function GuidedReading() {
   const [currentExercise, setCurrentExercise] = useState(0);
@@ -55,7 +54,7 @@ export default function GuidedReading() {
       const lineContent = words.map((word, wordIndex) => (
         <span 
           key={`${lineIndex}-${wordIndex}`} 
-          className={`word ${highlighting === 'word' ? 'highlightable' : ''}`}
+          className={`${highlighting === 'word' ? 'hover:bg-[#B8E0D2]/50 hover:rounded cursor-pointer' : ''}`}
           onClick={() => handleWordClick(word.replace(/[.,;!?]$/, ''))}
         >
           {word}{' '}
@@ -63,7 +62,10 @@ export default function GuidedReading() {
       ));
 
       content.push(
-        <div key={lineIndex} className={highlighting === 'line' ? 'line-highlight' : ''}>
+        <div 
+          key={lineIndex} 
+          className={`${highlighting === 'line' ? 'hover:bg-[#B8E0D2]/30' : ''}`}
+        >
           {lineContent}
         </div>
       );
@@ -72,10 +74,24 @@ export default function GuidedReading() {
     return content;
   };
 
+  // Determinar las clases de tamaño de fuente
+  const fontSizeClasses = {
+    small: 'text-sm',
+    medium: 'text-base',
+    large: 'text-xl'
+  };
+
+  // Determinar las clases de tipo de fuente
+  const fontTypeClasses = {
+    dyslexic: 'font-["OpenDyslexic",sans-serif]',
+    sans: 'font-sans',
+    serif: 'font-serif'
+  };
+
   if (!exercise) {
     return (
       <ExerciseLayout title="Lectura Guiada">
-        <div className="no-exercise">
+        <div className="flex items-center justify-center p-8 text-[#809BCE] font-medium">
           No hay ejercicios disponibles. Por favor, inténtalo más tarde.
         </div>
       </ExerciseLayout>
@@ -84,76 +100,113 @@ export default function GuidedReading() {
 
   return (
     <ExerciseLayout title="Lectura Guiada">
-      <div className="guided-reading">
-        <div className="reading-controls">
-          <div className="control-section">
-            <div className="control-group">
-              <label>Tamaño de letra:</label>
-              <div className="control-options">
-                <button 
-                  className={fontSize === 'small' ? 'active' : ''} 
-                  onClick={() => setFontSize('small')}
-                >
-                  Pequeña
-                </button>
-                <button 
-                  className={fontSize === 'medium' ? 'active' : ''} 
-                  onClick={() => setFontSize('medium')}
-                >
-                  Mediana
-                </button>
-                <button 
-                  className={fontSize === 'large' ? 'active' : ''} 
-                  onClick={() => setFontSize('large')}
-                >
-                  Grande
-                </button>
+      <div className="flex flex-col gap-6 items-center w-full max-w-4xl mx-auto">
+        {/* Controles de lectura */}
+        <div className="w-full bg-white/90 rounded-xl shadow-lg p-4">
+          <div className="flex flex-col md:flex-row justify-between gap-4">
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
+                <label className="text-[#809BCE] font-semibold">Tamaño de letra:</label>
+                <div className="flex gap-2">
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontSize === 'small' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontSize('small')}
+                  >
+                    Pequeña
+                  </button>
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontSize === 'medium' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontSize('medium')}
+                  >
+                    Mediana
+                  </button>
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontSize === 'large' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontSize('large')}
+                  >
+                    Grande
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-[#809BCE] font-semibold">Tipo de letra:</label>
+                <div className="flex gap-2">
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontType === 'dyslexic' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontType('dyslexic')}
+                  >
+                    Dislexia
+                  </button>
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontType === 'sans' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontType('sans')}
+                  >
+                    Sin serifa
+                  </button>
+                  <button 
+                    className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                      fontType === 'serif' 
+                        ? 'bg-[#809BCE] text-white' 
+                        : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                    }`}
+                    onClick={() => setFontType('serif')}
+                  >
+                    Con serifa
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="control-group">
-              <label>Tipo de letra:</label>
-              <div className="control-options">
+            <div className="flex flex-col gap-2">
+              <label className="text-[#809BCE] font-semibold">Resaltado:</label>
+              <div className="flex gap-2">
                 <button 
-                  className={fontType === 'dyslexic' ? 'active' : ''} 
-                  onClick={() => setFontType('dyslexic')}
-                >
-                  Dislexia
-                </button>
-                <button 
-                  className={fontType === 'sans' ? 'active' : ''} 
-                  onClick={() => setFontType('sans')}
-                >
-                  Sin serifa
-                </button>
-                <button 
-                  className={fontType === 'serif' ? 'active' : ''} 
-                  onClick={() => setFontType('serif')}
-                >
-                  Con serifa
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="control-section">
-            <div className="control-group">
-              <label>Resaltado:</label>
-              <div className="control-options">
-                <button 
-                  className={highlighting === 'none' ? 'active' : ''} 
+                  className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                    highlighting === 'none' 
+                      ? 'bg-[#809BCE] text-white' 
+                      : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                  }`}
                   onClick={() => setHighlighting('none')}
                 >
                   Ninguno
                 </button>
                 <button 
-                  className={highlighting === 'word' ? 'active' : ''} 
+                  className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                    highlighting === 'word' 
+                      ? 'bg-[#809BCE] text-white' 
+                      : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                  }`}
                   onClick={() => setHighlighting('word')}
                 >
                   Por palabra
                 </button>
                 <button 
-                  className={highlighting === 'line' ? 'active' : ''} 
+                  className={`px-3 py-1 rounded-md font-medium text-sm transition-all ${
+                    highlighting === 'line' 
+                      ? 'bg-[#809BCE] text-white' 
+                      : 'bg-[#809BCE]/20 text-[#809BCE] hover:bg-[#809BCE]/30'
+                  }`}
                   onClick={() => setHighlighting('line')}
                 >
                   Por línea
@@ -163,48 +216,55 @@ export default function GuidedReading() {
           </div>
         </div>
 
-        <div 
-          className={`reading-content ${fontSize} ${fontType}`}
-        >
-          <h3 className="reading-title">{exercise.title}</h3>
+        {/* Contenido de lectura */}
+        <div className="w-full bg-white/95 rounded-xl shadow-xl p-6 mb-4">
+          <h3 className="text-2xl font-bold text-[#EAC4D5] mb-4 text-center">{exercise.title}</h3>
+          
           {exercise.image && (
-            <div className="reading-image-container">
-              <img src={exercise.image} alt={exercise.title} className="reading-image" />
+            <div className="flex justify-center mb-6">
+              <img src={exercise.image} alt={exercise.title} className="max-w-full h-auto rounded-lg shadow-md" />
             </div>
           )}
-          <div className="reading-text" style={{ marginBottom: '50px' }}>
+          
+          <div 
+            className={`${fontSizeClasses[fontSize]} ${fontTypeClasses[fontType]} text-[#232526] leading-relaxed mb-12`}
+          >
             {renderText()}
           </div>
         </div>
 
+        {/* Definición de palabra */}
         {showingDefinition && (
-          <div className="word-definition">
-            <div className="definition-header">
-              <h4>{showingDefinition.word}</h4>
+          <div className="w-full bg-[#B8E0D2]/50 border border-[#B8E0D2] rounded-lg p-4 mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h4 className="text-lg font-bold text-[#809BCE]">{showingDefinition.word}</h4>
               <button 
-                className="close-definition" 
+                className="text-2xl text-[#809BCE] hover:text-[#EAC4D5] transition-colors"
                 onClick={() => setShowingDefinition(null)}
               >
                 &times;
               </button>
             </div>
-            <p>{showingDefinition.definition}</p>
+            <p className="text-[#232526]">{showingDefinition.definition}</p>
           </div>
         )}
 
-        <div className="reading-navigation">
+        {/* Navegación */}
+        <div className="w-full flex justify-between items-center p-4 bg-white/80 rounded-xl shadow-md">
           <button 
             onClick={handlePreviousExercise}
-            className="nav-button prev"
+            className="px-4 py-2 rounded-lg bg-[#809BCE] text-white font-medium hover:bg-[#EAC4D5] transition-colors"
           >
             &larr; Anterior
           </button>
-          <span className="exercise-counter">
+          
+          <span className="font-medium text-[#809BCE]">
             {currentExercise + 1} / {guidedReadingExercises.length}
           </span>
+          
           <button 
             onClick={handleNextExercise}
-            className="nav-button next"
+            className="px-4 py-2 rounded-lg bg-[#809BCE] text-white font-medium hover:bg-[#EAC4D5] transition-colors"
           >
             Siguiente &rarr;
           </button>

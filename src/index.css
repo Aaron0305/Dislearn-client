@@ -94,3 +94,23 @@ body {
     column-count: 1;
   }
 }
+
+@keyframes bounce-rotate {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+  75% {
+    transform: translateY(2px) rotate(-5deg);
+  }
+}
+
+.animate-bounce-rotate {
+  animation: bounce-rotate 2s infinite;
+}
+
+.animate-bounce-rotate:hover {
+  animation-play-state: paused;
+}

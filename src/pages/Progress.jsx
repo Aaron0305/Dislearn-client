@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../contexts/UserContext'
 import ProgressChart from '../components/ProgressChart'
-import './ProgressPage.css'
 
 export default function Progress() {
   const { user } = useContext(UserContext)
@@ -10,6 +9,8 @@ export default function Progress() {
     writing: [],
     comprehension: []
   })
+  const [selectedExercise, setSelectedExercise] = useState('reading')
+  const [showStats, setShowStats] = useState(null)
 
   useEffect(() => {
     // Simular datos de progreso (en una app real vendría de una API)
@@ -34,51 +35,71 @@ export default function Progress() {
     fetchProgressData()
   }, [])
 
+  const handleTabClick = (statType) => {
+    setShowStats(statType)
+  }
+
+  const handleExerciseSelect = (exercise) => {
+    setSelectedExercise(exercise)
+  }
+
   return (
-    <div className="progress-page">
-      <h1>Progreso de {user?.name || 'Usuario'}</h1>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-3xl font-bold text-green-800 mb-8">
+        Progreso de {user?.name || 'Usuario'}
+      </h1>
       
-      <div className="stats-summary">
-        <div className="stat-card">
-          <h3>Ejercicios Completados</h3>
-          <p className="stat-value">{user?.completedExercises || 0}</p>
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div 
+          className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-700 cursor-pointer"
+          onClick={() => handleTabClick('exercises')}
+        >
+          <h3 className="text-lg font-medium text-gray-700 mb-2">Ejercicios Completados</h3>
+          <p className="text-4xl font-bold text-green-700">{user?.completedExercises || 0}</p>
         </div>
-        <div className="stat-card">
-          <h3>Días Consecutivos</h3>
-          <p className="stat-value">{user?.streak || 0}</p>
+        <div 
+          className="bg-white rounded-lg shadow-md p-6 border-l-4 border-lime-500 cursor-pointer"
+          onClick={() => handleTabClick('streak')}
+        >
+          <h3 className="text-lg font-medium text-gray-700 mb-2">Días Consecutivos</h3>
+          <p className="text-4xl font-bold text-lime-500">{user?.streak || 0}</p>
         </div>
-        <div className="stat-card">
-          <h3>Mejoría General</h3>
-          <p className="stat-value">+{user?.improvement || 0}%</p>
+        <div 
+          className="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-400 cursor-pointer"
+          onClick={() => handleTabClick('improvement')}
+        >
+          <h3 className="text-lg font-medium text-gray-700 mb-2">Proceso General</h3>
+          <p className="text-4xl font-bold text-yellow-400">+{user?.improvement || 0}%</p>
         </div>
       </div>
       
-      <div className="progress-charts">
-        <div className="chart-container">
-          <h3>Progreso en Lectura</h3>
-          <ProgressChart data={progressData.reading} color="#4a6fa5" />
+      {/* Dynamic Stats View */}
+      {showStats === 'exercises' && (
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-green-800 mb-4">Estadísticas por Ejercicio</h3>
+          <div className="mb-4">
+            <label htmlFor="exercise" className="mr-2 text-lg font-medium text-gray-700">Selecciona un Ejercicio</label>
+            <select
+              id="exercise"
+              value={selectedExercise}
+              onChange={(e) => handleExerciseSelect(e.target.value)}
+              className="p-2 border rounded-md"
+            >
+              <option value="reading">Lectura</option>
+              <option value="writing">Escritura</option>
+              <option value="comprehension">Comprensión</option>
+            </select>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">Progreso en {selectedExercise.charAt(0).toUpperCase() + selectedExercise.slice(1)}</h3>
+            <ProgressChart data={progressData[selectedExercise]} colorName={selectedExercise === 'reading' ? 'teal' : selectedExercise === 'writing' ? 'yellow' : 'lime'} />
+          </div>
         </div>
-        <div className="chart-container">
-          <h3>Progreso en Escritura</h3>
-          <ProgressChart data={progressData.writing} color="#ff9e1b" />
-        </div>
-        <div className="chart-container">
-          <h3>Progreso en Comprensión</h3>
-          <ProgressChart data={progressData.comprehension} color="#6bbf59" />
-        </div>
-      </div>
-      
-      <div className="badges-section">
-        <h3>Logros Obtenidos</h3>
-        <div className="badges-grid">
-          {user?.badges?.map((badge, index) => (
-            <div key={index} className="badge">
-              <img src={`/assets/badges/${badge}.png`} alt={badge} />
-              <p>{badge.replace('-', ' ')}</p>
-            </div>
-          )) || <p>No hay logros todavía. ¡Sigue practicando!</p>}
-        </div>
-      </div>
+      )}
+      {showStats === 'streak' && <div className="text-center">Estadísticas de Días Consecutivos</div>}
+      {showStats === 'improvement' && <div className="text-center">Estadísticas de Mejoría General</div>}
     </div>
   )
 }

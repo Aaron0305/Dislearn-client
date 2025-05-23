@@ -1,3 +1,4 @@
+
 export const ROUTES = {
   HOME: "/",
   EXERCISES: "/exercises",
@@ -10,4 +11,8 @@ export const ROUTES = {
   PROFILE: "/profile",
   TEST: "/test",
   login: "/login",
+  Navbarlogin: "/Navbarlogin",
+  Navbar: "/Navbar",
+  Cerrar: "/Cerrar",
+  ConfirmacionCierre: "/ConfirmacionCierre",
 };

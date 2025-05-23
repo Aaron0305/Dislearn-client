@@ -1,42 +1,46 @@
-import { createContext, useState, useEffect } from 'react';
+  import { createContext, useState, useEffect, useContext } from 'react';
 
-export const UserContext = createContext();
+  export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simular la carga de datos del usuario desde un API o localStorage
-    const fetchUser = () => {
-      setTimeout(() => {
-        // Datos de ejemplo para el usuario
-        const mockUser = {
-          id: 1,
-          name: 'Ana García',
-          email: 'ana.garcia@ejemplo.com',
-          completedExercises: 24,
-          streak: 7,
-          improvement: 15,
-          badges: ['fast-learner', 'consistency-master', 'reading-pro'],
-          progress: {
-            reading: 78,
-            writing: 65,
-            comprehension: 82
-          }
-        };
-        
-        setUser(mockUser);
-        setLoading(false);
-      }, 1000);
+    useEffect(() => {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+          localStorage.removeItem('user');
+        }
+      }
+      setLoading(false);
+    }, []);
+
+    const login = (userData) => {
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
     };
-    
-    fetchUser();
-  }, []);
 
-  return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
-      {children}
-    </UserContext.Provider>
-  );
-};
+    const logout = () => {
+      localStorage.removeItem('user');
+      setUser(null);
+    };
+
+    return (
+      <UserContext.Provider value={{ user, loading, login, logout }}>
+        {children}
+      </UserContext.Provider>
+    );
+  };
+
+  // Hook personalizado useUser
+  export function useUser() {
+    const context = useContext(UserContext);
+    if (!context) {
+      throw new Error('useUser must be used within a UserProvider');
+    }
+    return context;
+  }
