@@ -13,7 +13,7 @@ import Navbar from './components/Navbar';
 import Navbarlogin from './components/Navbarlogin';
 import Test from './pages/Test/Test';
 import Login from './components/login/login';
-import Cerrar from '../src/components/Navbar/cerrar';
+import Cerrar from '../src/components/Navbar/Cerrar';
 import { ROUTES } from './routes';
 
 function AppContent() {

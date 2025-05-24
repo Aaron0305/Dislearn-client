@@ -114,3 +114,38 @@ body {
 .animate-bounce-rotate:hover {
   animation-play-state: paused;
 }
+/* animación de boton de test */
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-border {
+  position: relative;
+}
+
+.animate-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #2b9ec8, #e2a9e4, #e8c9c9, #eaead1, #f3f3f3, #2b9ec8);
+  z-index: -1;
+  opacity: 0;
+  animation: rotate-border 3s linear infinite;
+  transition: opacity 0.3s ease;
+  padding: 3px;
+}
+
+.animate-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: inherit;
+  z-index: -1;
+}
+
+.animate-border:hover::before {
+  opacity: 1;
+}
