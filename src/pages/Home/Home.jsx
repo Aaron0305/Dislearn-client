@@ -323,8 +323,8 @@ export default function Home() {
       </section>
 
       {/* Video section con efectos mejorados */}
-      <section
-        ref={videoRef}
+      <section 
+        ref={videoRef} 
         className={`py-24 bg-[#B8E0D2]/10 transition-all duration-1000 ease-out ${
           videoIsVisible ? 'opacity-100' : 'opacity-0 translate-y-10'
         }`}
@@ -348,7 +348,7 @@ export default function Home() {
             <div className="w-full max-w-3xl mx-auto relative group">
               <div 
                 className="rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500"
-                style={{ 
+                style={{
                   position: "relative",
                   paddingBottom: "56.25%",
                   height: 0,
@@ -367,11 +367,6 @@ export default function Home() {
                 ></iframe>
               </div>
               <div className="absolute inset-0 rounded-2xl border border-white/20 pointer-events-none"></div>
-              
-              {/* Play button overlay animado */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-[#809BCE]/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <Play size={32} className="text-white ml-1" />
-              </div>
             </div>
           </div>
           
@@ -385,7 +380,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* CTA con efectos mejorados */}
       <section
         ref={ctaRef}

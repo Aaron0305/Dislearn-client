@@ -9,7 +9,7 @@
     yellow: "#F5D491"
     };
 
-    const API_URL = "http://localhost:3001";
+    const API_URL = "https://tu-backend-url.vercel.app";
     const GOOGLE_AUTH_URL = `${API_URL}/auth/google/login`;
 
     const checkEmailFormat = (email) => {

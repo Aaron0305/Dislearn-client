@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, Puzzle, LineChart, LogIn } from 'lucide-react';
-import '../../src/index.css'; // Import your global styles
+
 export default function Navbar({ user, setUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -75,20 +75,22 @@ export default function Navbar({ user, setUser }) {
                   </span>
                 </button>
               ) : (
-                <Link to="/test">
-                  <button className="animate-border relative overflow-hidden px-6 py-3 rounded-full group transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#2b9ec8] to-[#e2a9e4] group-hover:from-[#1a7a96] group-hover:to-[#d088d3] transition-all duration-300 rounded-full"></span>
-                    <span className="absolute -inset-x-1 -bottom-1 h-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent blur-sm"></span>
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-1/6 bg-white/20 blur-sm rounded-full"></span>
-                    <span className="relative flex items-center text-white font-semibold z-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v16h12V3H4z" clipRule="evenodd" />
-                        <path fillRule="evenodd" d="M7 7a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" />
-                      </svg>
-                      Realiza test
-                    </span>
-                  </button>
-                </Link>
+                  <Link to="/test">
+                    <button
+                      className="relative overflow-hidden px-6 py-2 rounded-full group"
+                    >
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#95B8D1] to-[#B8E0D2] group-hover:from-[#809BCE] group-hover:to-[#B8E0D2] transition-all duration-300"></span>
+                      <span className="absolute -inset-x-1 -bottom-1 h-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent blur-sm"></span>
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-1/6 bg-white/20 blur-sm rounded-full"></span>
+                      <span className="relative flex items-center text-white font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v16h12V3H4z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M7 7a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" />
+                        </svg>
+                        Realiza test
+                      </span>
+                    </button>
+                  </Link>
               )}
             </div>
           </div>
@@ -139,107 +141,16 @@ export default function Navbar({ user, setUser }) {
                 <span className="mr-2">👋</span> Cerrar sesión
               </button>
             ) : (
-              <Link to="/test">
-              <style>
-                {`
-                  @keyframes rotate-border {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                  }
-                  
-                  .neon-button {
-                    position: relative;
-                    background: linear-gradient(135deg, #2b9ec8, #e2a9e4);
-                    border: none;
-                    border-radius: 50px;
-                    padding: 12px 24px;
-                    color: white;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    box-shadow: 
-                      0 0 15px rgba(32, 218, 216, 0.4),
-                      0 0 30px rgba(32, 218, 216, 0.3);
-                  }
-                  
-                  .neon-button::before {
-                    content: '';
-                    position: absolute;
-                    top: -6px;
-                    left: -6px;
-                    right: -6px;
-                    bottom: -6px;
-                    border-radius: 50px;
-                    background: conic-gradient(
-                      from 0deg,
-                      #20dad8 0deg,
-                      #3fdedc 72deg,
-                      #5c0920 144deg,
-                      #980a28 216deg,
-                      #c7754c 288deg,
-                      #20dad8 360deg
-                    );
-                    z-index: -2;
-                    opacity: 0;
-                    animation: rotate-border 2.5s linear infinite;
-                    transition: opacity 0.3s ease;
-                    filter: blur(12px);
-                  }
-                  
-                  .neon-button::after {
-                    content: '';
-                    position: absolute;
-                    top: -4px;
-                    left: -4px;
-                    right: -4px;
-                    bottom: -4px;
-                    border-radius: 50px;
-                    background: conic-gradient(
-                      from 0deg,
-                      #20dad8 0deg,
-                      #3fdedc 72deg,
-                      #5c0920 144deg,
-                      #980a28 216deg,
-                      #c7754c 288deg,
-                      #20dad8 360deg
-                    );
-                    z-index: -1;
-                    opacity: 20;
-                    animation: rotate-border 2.5s linear infinite;
-                    transition: opacity 0.3s ease;
-                    filter: blur(2px);
-                  }
-                  
-                  .neon-button:hover {
-                    transform: scale(1.08);
-                    box-shadow: 
-                      0 0 25px #20dad8,
-                      0 0 50px #3fdedc,
-                      0 0 75px #20dad8,
-                      0 0 100px #3fdedc,
-                      0 0 125px #20dad8;
-                  }
-                  
-                  .neon-button:hover::before {
-                    opacity: 100;
-                    filter: blur(15px);
-                  }
-                  
-                  .neon-button:hover::after {
-                    opacity: 100;
-                    filter: blur(3px);
-                  }
-                `}
-              </style>
-              <button className="neon-button relative">
-                <span className="relative flex items-center z-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <Link to="/test" onClick={() => setIsOpen(false)}>
+                <button
+                  className="w-full flex items-center justify-center px-4 py-3 rounded-xl bg-gradient-to-r from-[#95B8D1] to-[#B8E0D2] text-white font-medium hover:from-[#809BCE] hover:to-[#B8E0D2] transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v16h12V3H4z" clipRule="evenodd" />
                     <path fillRule="evenodd" d="M7 7a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" />
                   </svg>
                   Realiza test
-                </span>
-              </button>
+                </button>
               </Link>
             )}
           </div>
