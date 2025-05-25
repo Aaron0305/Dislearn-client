@@ -9,7 +9,7 @@
     yellow: "#F5D491"
     };
 
-    const API_URL = "https://tu-backend-url.vercel.app";
+    const API_URL = "https://dislearn-server.vercel.app/";
     const GOOGLE_AUTH_URL = `${API_URL}/auth/google/login`;
 
     const checkEmailFormat = (email) => {
